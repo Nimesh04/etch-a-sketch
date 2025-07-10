@@ -9,38 +9,43 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 5em;
+    margin-top: 2em;
 }
 
 .sketchContainer{
     display: flex;
-    margin-top: 1rem;
-    border: 5px solid rgb(255, 136, 0);
-    flex: 1;
-    max-width: 960px;
-    max-height: 960px;
+    margin: 2rem 0;
+    border: 5px solid rgb(41, 22, 1);
+    width: 600px;
+    height: 600px;
+    
 }
 
-/* .column{
+.column{
     display: flex;
     flex-direction: column;
-    flex: auto;
-} */
-
+    flex: 1;
+}
 .row{
+    flex: 1;
     background-color: aliceblue;
-    padding: 10px;
-    width: 50px;
-    height: 50px;  
-    border: 1px solid black;
+    border: none;
+    
 }
 
 #popUp{
     align-content: center;
-    background-color: aqua;
+    background-color: rgb(248, 248, 248);
     color: rgb(0, 0, 0);
     font-size: 1.5rem;
     padding: 0.5rem;
     border-radius: 1rem;
-    border: 2px solid black;
+    border: 2px solid #04cef1;
+    transition: background-color ease 0.3s;
+}
+
+
+#popUp:hover{
+    color: white;
+    background-color: rgb(10, 157, 202);
 }

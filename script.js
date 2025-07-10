@@ -10,10 +10,11 @@ createGrid(10);
 function resetGrid(){
     let gridSize = prompt("Number of square in the girds? Less than 100:");
     if(gridSize > 0 & gridSize <= 100){
+        div.innerHTML= '';
         createGrid(gridSize);
     }else{
         alert("Keep the number between 1 to 100.");
-        gridSize = praseInt(prompt("Number of square in the girds? Less than 100:"));
+        gridSize = prompt("Number of square in the girds? Less than 100:");
     }
 }
 
@@ -29,10 +30,21 @@ function createGrid(size){
         column.appendChild(row);
     }
     div.appendChild(column);
+    hoverEffect();
+}
+}
 
-    
+
+// Creates the random numbers and returns a list for the rgb 
+
+function randomColor(){
+    let r = Math.floor(Math.random() * 255);
+    let g = Math.floor(Math.random() * 255);
+    let b = Math.floor(Math.random() * 255);
+    return [r,g,b];
 }
-}
+
+
 // Captures the click on the reset button
 
 resetBtn.addEventListener("click", () => resetGrid());
@@ -40,14 +52,16 @@ resetBtn.addEventListener("click", () => resetGrid());
 
 // When the mouse hovers over the squares, this changes the color and sets the timer for it to be 500 millisecond
 
-const hoverDiv = document.querySelectorAll("div.row");
-hoverDiv.forEach(element => {
-    element.addEventListener("mouseover",()=>{
-    element.style.backgroundColor = "red";
-
-    setTimeout(() => {
-        element.style.backgroundColor = "white";
-    }, 500);
-    });
-})
+function hoverEffect(){
+    const hoverDiv = document.querySelectorAll("div.row");
+    hoverDiv.forEach(element => {
+        element.addEventListener("mouseover",()=>{
+            const colorRgb = randomColor();
+            element.style.backgroundColor = `rgb(${colorRgb[0]}, ${colorRgb[1]}, ${colorRgb[2]})`;
+        setTimeout(() => {
+            element.style.backgroundColor = "white";
+        }, 500);
+        });
+    })
+}
 
