@@ -1,23 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Comforter+Brush&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comforter+Brush&family=Gochi+Hand&family=Playpen+Sans+Hebrew:wght@100..800&display=swap');
 * {
     margin: 0;
     padding: 0;
-    background-color: rgb(48, 48, 48);
+    background-color: rgb(32 34 37);
+    color: white;
+    font-family: "Comforter Brush", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .container{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-top: 2em;
+    margin-top: 0.5rem;
 }
+
 .leftSection{
-    border-right: 3px solid gray;
-    background-color: black;
+    text-align: center;
+    margin-top: 2rem;
 }
+
+.leftSection h1{
+    font-size: 4rem;
+}
+
 .sketchContainer{
     display: flex;
     margin: 2rem 0;
-    border: 5px solid rgb(41, 22, 1);
+    border: 2px solid rgb(0, 0, 0);
     width: 600px;
     height: 600px;
     
@@ -36,10 +48,13 @@
 }
 
 #popUp{
+    font-family: "Gochi Hand", cursive;
+    font-weight: 400;
+    font-style: normal;
     align-content: center;
     background-color: rgb(248, 248, 248);
     color: rgb(0, 0, 0);
-    font-size: 1.5rem;
+    font-size: 0.8rem;
     padding: 0.5rem;
     border-radius: 1rem;
     border: 2px solid #04cef1;
@@ -50,4 +65,14 @@
 #popUp:hover{
     color: white;
     background-color: rgb(10, 157, 202);
+}
+
+.instruction {
+    text-align: center;
+    font-size: 1.5rem;
+}
+.instruction h2{
+    font-family: "Gochi Hand", cursive;
+    font-weight: 400;
+    font-style: normal;
 }
