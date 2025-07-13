@@ -1,7 +1,9 @@
 // Capture the elements from html
 
 const div = document.querySelector(".sketchContainer");
-const resetBtn = document.querySelector("#popUp");
+const newBoard = document.querySelector("#popUp");
+let shiftKeyPressed = false;
+let ctrlKeyPressed = false;
 let row, column;
 
 // Creates the random numbers and returns a list for the rgb 
@@ -13,9 +15,10 @@ function randomColor(a = 0.1){
     return `rgba(${r},${g},${b},${a})`;
 }
 
-// Resets the grid according the size given by the user, but has to be between 1 to 100
 
-function resetGrid(){
+// Creates new grid according the size given by the user, but has to be between 1 to 100
+
+function createNewBoard(){
     let gridSize = prompt("Number of square in the girds? Less than 100:");
     if(gridSize > 0 & gridSize <= 100){
         div.innerHTML= '';
@@ -25,7 +28,6 @@ function resetGrid(){
         gridSize = prompt("Number of square in the girds? Less than 100:");
     }
 }
-
 
 // From the size given by the user, this creates the grid
 
@@ -63,7 +65,8 @@ function increaseOpacity(valueOfBg){
 function decreaseOpacity(bgValue){
     let red, green, blue, alpha;
     [red,green,blue,alpha] = bgValue.match(/[0-9]+(\.[0-9])?/g);
-    if(alpha == undefined) alpha = 0.1;
+    if(alpha == undefined) alpha = 1.0;
+    if(alpha <= 0.1) return `rgb(255,255,255)`;
     if(alpha > 0.1 & alpha <= 1.0) alpha = parseFloat(alpha) -0.1;
     return `rgba(${red},${green},${blue},${alpha})`;
 }
@@ -72,10 +75,21 @@ function decreaseOpacity(bgValue){
 // If it already has color, then takes that color and calls the function to increase the opacity.
 
 function paintSquare(element){
-    if(window.getComputedStyle(element).backgroundColor == EMPTY_COLOR ){
-        element.style.backgroundColor = randomColor(0.1);
-    }else{
-        element.style.backgroundColor = increaseOpacity(element.style.backgroundColor);
+    if(shiftKeyPressed){
+        ctrlKeyPressed = false;
+        if(window.getComputedStyle(element).backgroundColor == EMPTY_COLOR){
+            element.style.backgroundColor = randomColor(0.1);
+        }else{
+            element.style.backgroundColor = increaseOpacity(element.style.backgroundColor);
+        }
+    }
+    if(ctrlKeyPressed){
+        shiftKeyPressed = false;
+        if(window.getComputedStyle(element).backgroundColor == EMPTY_COLOR){
+            element.style.backgroundColor = EMPTY_COLOR;
+        }else{
+            element.style.backgroundColor = decreaseOpacity(element.style.backgroundColor);
+        }
     }
 }
 
@@ -84,28 +98,26 @@ function paintSquare(element){
 function hoverEffect(){
     const hoverDiv = document.querySelectorAll("div.sketchContainer div.row"); 
     hoverDiv.forEach(element => {
-        element.addEventListener("mouseenter",()=>setTimeout(paintSquare(element), 5000));
+        element.addEventListener("mouseenter",()=>paintSquare(element));
     });
-}
-
-function isPressed(e){
-    if(e.shiftKey){
-        console.log("Pressed shift:", e.shiftKey);
-        return shiftKeyPressed = true;
-    }else if(e.ctrlKey){
-        console.log("Pressed ctrl:", e.ctrlKey);
-        return ctrlKeyPressed = true;
-    }else{
-        return false;
-    }
 }
 
 
 // Captures the click on the reset button
-let shiftKeyPressed = false;
-let ctrlKeyPressed = false;
 const EMPTY_COLOR = "rgb(255, 255, 255)";
-resetBtn.addEventListener("click", () => resetGrid());
+document.addEventListener("keydown", trigger =>{
+    if(trigger.shiftKey) shiftKeyPressed = true;
+    if(trigger.ctrlKey) ctrlKeyPressed = true;
+});
+
+
+document.addEventListener("keyup", trigger =>{
+    if(trigger.key == "Shift") shiftKeyPressed = false;
+    if(trigger.key == "Control") ctrlKeyPressed = false;
+
+})
+shiftKeyPressed,ctrlKeyPressed = false;
+newBoard.addEventListener("click", () => createNewBoard());
 
 
 
